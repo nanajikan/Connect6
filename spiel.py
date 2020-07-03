@@ -312,33 +312,34 @@ class GameGraphics:
 
     def draw_board(self, board_p1, board_p2, move=None, which_player=None):
         """draw board"""
+        a=self.squaresize
         # draw background
         self.screen.fill(darkgrey)
         for ii in range(bs):
             for jj in range(bs):
                 # draw lines
-                pg.draw.line(self.screen, lightgrey,(int((ii+0.5)*self.squaresize), jj*self.squaresize), (int((ii+0.5)*self.squaresize), (jj+1)*self.squaresize) ,1)
-                pg.draw.line(self.screen, lightgrey,(ii*self.squaresize,int((jj+0.5)*self.squaresize)), ((ii+1)*self.squaresize, int((jj+0.5)*self.squaresize)) ,1)
+                pg.draw.line(self.screen, lightgrey,(int((ii+0.5)*a), jj*a), (int((ii+0.5)*a), (jj+1)*a) ,1)
+                pg.draw.line(self.screen, lightgrey,(ii*a,int((jj+0.5)*a)), ((ii+1)*a, int((jj+0.5)*a)) ,1)
                 # draw stones
                 if board_p1[ii,jj]==1:
-                    pg.draw.circle(self.screen,green,(int((ii+0.5)*self.squaresize),int((jj+0.5)*self.squaresize)),int(self.squaresize/(2.1)))
+                    pg.draw.circle(self.screen,green,(int((ii+0.5)*a),int((jj+0.5)*a)),int(a/(2.1)))
                 elif board_p2[ii,jj]==1:
-                    pg.draw.circle(self.screen,red,(int((ii+0.5)*self.squaresize),int((jj+0.5)*self.squaresize)),int(self.squaresize/(2.1)))
+                    pg.draw.circle(self.screen,red,(int((ii+0.5)*a),int((jj+0.5)*a)),int(a/(2.1)))
         # highlite current move
         if move !=None and which_player==None:
             move1=move[0]
             move2=move[1]
-            pg.draw.circle(self.screen, yellow,(int((move1[0]+0.5)*self.squaresize),int((move1[1]+0.5)*self.squaresize)), int(self.squaresize/(5)))
-            pg.draw.circle(self.screen, yellow,(int((move2[0]+0.5)*self.squaresize),int((move2[1]+0.5)*self.squaresize)), int(self.squaresize/(5)))
+            pg.draw.circle(self.screen, yellow,(int((move1[0]+0.5)*a),int((move1[1]+0.5)*a)), int(a/(5)))
+            pg.draw.circle(self.screen, yellow,(int((move2[0]+0.5)*a),int((move2[1]+0.5)*a)), int(a/(5)))
         elif move !=None and which_player!=None:
             if which_player=='Player1':
-                pg.draw.circle(self.screen,green,(int((move[0]+0.5)*self.squaresize), int((move[1]+0.5)*self.squaresize)),int(self.squaresize/(2.1)))
+                pg.draw.circle(self.screen,green,(int((move[0]+0.5)*a), int((move[1]+0.5)*a)),int(a/(2.1)))
             elif which_player=='Player2':
-                pg.draw.circle(self.screen,red,(int((move[0]+0.5)*self.squaresize), int((move[1]+0.5)*self.squaresize)),int(self.squaresize/(2.1)))
-            pg.draw.circle(self.screen, yellow,(int((move[0]+0.5)*self.squaresize),int((move[1]+0.5)*self.squaresize)), int(self.squaresize/(5)))
+                pg.draw.circle(self.screen,red,(int((move[0]+0.5)*a), int((move[1]+0.5)*a)),int(a/(2.1)))
+            pg.draw.circle(self.screen, yellow,(int((move[0]+0.5)*a),int((move[1]+0.5)*a)), int(a/(5)))
         #update window
-        self.dummyinput()
         pg.display.update()
+        self.dummyinput()
 
     def get_input(self):
         """gets the input using pygame"""
@@ -368,7 +369,7 @@ class GameGraphics:
     def dummyinput(self):
         """function to solve problem of display for bot vs bot"""
         time_dummy=pg.time.get_ticks()
-        while pg.time.get_ticks()<time_dummy+1:
+        while pg.time.get_ticks()<time_dummy+0.1:
             for event in pg.event.get():
                 if event.type==pg.QUIT:
                     sys.exit()
