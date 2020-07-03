@@ -9,5 +9,4 @@
 - spiel.py is the main script
 - game_class.py contains all the game specific classes
 - bot_class.py contains the class for the moves of the bot
-- popo
 - gameX (X is a number) are files which contain information about a single game
